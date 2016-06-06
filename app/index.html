@@ -31,8 +31,17 @@
         <div class="header">
           <ul class="nav nav-pills pull-right">
             <li><a>About</a></li>
-            <li><a data-toggle="modal" data-target="#logInModal">LOG IN</a></li>
-            <li><a data-toggle="modal" data-target="#signUpModal">SIGN UP</a></li>
+            <li><a id="nav-login" data-toggle="modal" data-target="#logInModal">LOG IN</a></li>
+            <li><a id="nav-signup" data-toggle="modal" data-target="#signUpModal">SIGN UP</a></li>
+            <li id="nav-user" class="dropdown">
+              <a id="nav-username" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Your Events</a></li>
+                <li><a href="#">Your Profile</a></li>
+                <li><a href="#">Separated link</a></li>
+                <li><a id="logout-btn" href="#">Log Out</a></li>
+              </ul>
+            </li>
           </ul>
           <h3 class="text-muted">Meetup</h3>
         </div>
@@ -50,39 +59,36 @@
           </div>
         </div>
 
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="..." alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-  </div>
-    <div class="col-xs-12 col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="..." alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-  </div>
-    <div class="col-xs-12 col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="..." alt="...">
-      <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-  </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>Thumbnail label</h3>
+                <p>...</p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>Thumbnail label</h3>
+                <p>...</p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>Thumbnail label</h3>
+                <p>...</p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+              </div>
+            </div>
+          </div>
 
-</div>
+        </div>
 
         <div class="footer">
           <p>Code By ♥</p>
@@ -101,21 +107,21 @@
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                  <label for="inputName">Your name</label>
-                  <input type="text" class="form-control" id="inputName" placeholder="Name">
+                  <label for="signupName">Your name</label>
+                  <input type="text" class="form-control" id="signupName" placeholder="Name">
                 </div>
                 <div class="form-group">
-                  <label for="inputEmail">Email address</label>
-                  <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                  <label for="signupEmail">Email address</label>
+                  <input type="email" class="form-control" id="signupEmail" placeholder="Email">
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword1">Password</label>
-                  <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+                  <label for="signupPassword">Password</label>
+                  <input type="password" class="form-control" id="signupPassword" placeholder="Password">
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-success">SIGN UP</button>
+              <button type="submit" id="signup-btn" class="btn btn-success">SIGN UP</button>
             </div>
           </div>
         </div>
@@ -133,17 +139,17 @@
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                  <label for="inputEmail">Email address</label>
-                  <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                  <label for="loginEmail">Email address</label>
+                  <input type="email" class="form-control" id="loginEmail" placeholder="Email">
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword1">Password</label>
-                  <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+                  <label for="loginPassword">Password</label>
+                  <input type="password" class="form-control" id="loginPassword" placeholder="Password">
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-success">LOG IN</button>
+              <button type="submit" id="login-btn" class="btn btn-success">LOG IN</button>
             </div>
           </div>
         </div>
@@ -165,6 +171,18 @@
       <script src="/bower_components/jquery/dist/jquery.js"></script>
       <!-- endbower -->
       <!-- endbuild -->
+
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCxRkGJI20d-SRzTlFYnmU94Jnfj7oCJbw",
+    authDomain: "scorching-fire-2347.firebaseapp.com",
+    databaseURL: "https://scorching-fire-2347.firebaseio.com",
+    storageBucket: "scorching-fire-2347.appspot.com",
+  };
+  firebase.initializeApp(config);
+</script>
 
       <!-- build:js scripts/plugins.js -->
       <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
