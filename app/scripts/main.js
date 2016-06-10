@@ -34,16 +34,19 @@ function publicInit(){
 
 }
 
-  firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          headerLoginBtn.hide(0);
-          headerSignupBtn.hide(0);
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
           firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
             console.log(snapshot.val());
             headerUsername.text(snapshot.val().username);
           });
           headerUserBtn.show(0);
-          firebase.database().ref('events/').once('value').then(function(snapshot){
+    } else {
+          console.log('logout');
+    }
+});
+
+firebase.database().ref('events/').once('value').then(function(snapshot){
             console.log(snapshot.val());
             $.each(snapshot.val(), function( key, value ) {
                     // console.log(key + ": " + value.eventType);
@@ -54,18 +57,36 @@ function publicInit(){
                       + '</h3><p>' +
                       value.eventLocation
                       + '</p></div></div></div>');
-                  }); 
-          });
-    } else {
-          console.log('logout');
-          headerLoginBtn.show();
-          headerSignupBtn.show();
-          headerUserBtn.hide();
-        }
-  });
+        }); 
+});
 
+function IssueTracker() {
+  this.issues = [];
+}
+IssueTracker.prototype = {
+  add: function (issue) {
+    this.issues.push(issue);
+  },
+  retrieve: function () {
+    var message = "";
+    switch (this.issues.length) {
+      case 0:
+        // do nothing because message is already ""
+        break;
+      case 1:
+        message = "Please correct the following issue:\n" + this.issues[0];
+        break;
+      default:
+        message = "Please correct the following issues:\n" + this.issues.join("\n");
+            console.log(this.issues);
+            console.log(message);
+        break;
+    }
+    return message;
+  }
+};
 
-      function init(){
+function init(){
 
         modalSignupBtn.click(function(){
           var signupName = $("#signupName").val();
@@ -80,8 +101,6 @@ function publicInit(){
           login(loginEmail, loginPassword);
           $('#logInModal').modal('hide');
         });
-
-
 
         headerLogoutBtn.click(function(){
           logout();
@@ -146,8 +165,8 @@ function login(email, password){
     var errorCode = error.code;
     var errorMessage = error.message;
     console.log(errorMessage);
+    $("#loginEmail").get(0).setCustomValidity(errorMessage);
   }).then(function(){
-    console.log(user);
   });
 }
 
