@@ -1,26 +1,74 @@
 $icon-font-path: '../fonts/';
-
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,800,700);
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
 .browserupgrade {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+	margin: 0.2em 0;
+	background: #ccc;
+	color: #000;
+	padding: 0.2em 0;
 }
 
-/* Space out content a bit */
-body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+body{
+	font-family: 'Open Sans', sans-serif;
 }
 
-.hide{
-  display:none;
+.header{
+	height:80px;
+	&__logo{
+		font-size:30px;
+		line-height:60px;
+		font-weight: 700;
+		letter-spacing: 5px;
+		margin:10px 0 10px 0;
+		display:inline-block;
+	}
+	&__nav{
+		height:80px;
+		li{
+			a{	
+				text-align:center;
+				padding:0;
+				border-radius:0px;
+				&:hover{
+					color:black;
+					background:none;
+					text-decoration: underline;
+				}
+			}
+		}
+		&__btn{
+			color:black;
+			width:60px;
+			font-size:12px;
+			font-weight:400;
+			line-height:60px;
+			margin:10px 0 10px 0;
+		}
+	}
 }
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-
+.header{
+	height:100px;
+	&__logo{
+		font-size:30px;
+		line-height:60px;
+		margin:20px 0 20px 0;
+	}
+	&__nav{
+		height:100px;
+		&__btn{
+			color:black;
+			width:100px;
+			font-size:14px;
+			font-weight:400;
+			line-height:60px;
+			margin:20px 0 20px 0;
+		}
+	}
+}
 }
