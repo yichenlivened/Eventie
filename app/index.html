@@ -23,231 +23,232 @@
   <!-- endbuild -->
 </head>
 <body>
-    <!--[if lt IE 10]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-      <![endif]-->
+  <!--[if lt IE 10]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-        <header class="header">
-          <div class="container">
-          <h1 class="header__logo">EVENTIE</h1>
-          <ul class="nav nav-pills pull-right header__nav">
-            <li><a id="headerLoginBtn" class="header__nav__btn" data-toggle="modal" data-target="#modalLogin">LOGIN</a></li>
-            <li><a id="headerSignupBtn" class="header__nav__btn" data-toggle="modal" data-target="#signUpModal">SIGNUP</a></li>
-            <li id="headerUserBtn" class="header__nav__btn dropdown">
-              <a id="headerUsername" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Your Events</a></li>
-                <li><a href="#">Your Profile</a></li>
-                <li><a id="headerLogoutBtn" href="#">Log Out</a></li>
-              </ul>
-            </li>
-          </ul>
-          </div>
-        </header>
+    <header class="header">
+      <div class="container">
+        <h1 class="header__logo">EVENTIE</h1>
+        <ul class="nav nav-pills pull-right header__nav">
+          <li><a id="headerLoginBtn" class="header__nav__btn hide" data-toggle="modal" data-target="#modalLogin">LOGIN</a></li>
+          <li><a id="headerSignupBtn" class="header__nav__btn hide" data-toggle="modal" data-target="#modalSignup">SIGNUP</a></li>
+          <li id="headerUserBtn" class="dropdown hide">
+            <a id="headerUsername" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a href="#">Your Events</a></li>
+              <li><a href="#">Your Profile</a></li>
+              <li><a id="headerLogoutBtn" href="#">Log Out</a></li>
+            </ul>
+        </li>
+        </ul>
+      </div>
+    </header>
 
-          <article class="jumbotron">
-              <div class="jumbotron__create">
-              <p>Every summer has its own story.</p>
-                <a data-toggle="modal" data-target="#createEventModal">
-                  CREATE EVENT
-                </a>
-              </div>
-          </article>
+    <article class="jumbotron">
+      <div class="jumbotron__create">
+        <p>Every summer has its own story.</p>
+        <a data-toggle="modal" data-target="#createEventModal">
+          CREATE EVENT
+        </a>
+      </div>
+    </article>
 
     <div class="container eventTable">
-        <h2>EVENTS IN: NEW YORK CITY</h2>
-        <div id="showEvent" class="row">
-          <div class="col-xs-12 col-md-6">
-            <div class="thumbnail">
-              <div class="caption">
+      <h2>EVENTS IN: NEW YORK CITY</h2>
+      <div id="showEvent" class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="thumbnail">
+            <div class="caption">
               <p>Friday, June 24, 2016 at 6:00 PM</p>
-                <h3>AT&T Mobile App Hackathon</h3>
-                <p>Manhattan, NY</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <div class="thumbnail">
-              <div class="caption">
-                <p>Friday, June 24, 2016 at 6:00 PM </p>
-                <h3>AT&T Mobile App Hackathon</h3>
-                <p>Manhattan, NY</p>
-              </div>
+              <h3>AT&T Mobile App Hackathon</h3>
+              <p>Manhattan, NY</p>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-      <!-- Sign Up Modal -->
-      <div class="modal bs-example-modal-sm fade " id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-sm" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+        <div class="col-xs-12 col-md-6">
+          <div class="thumbnail">
+            <div class="caption">
+              <p>Friday, June 24, 2016 at 6:00 PM </p>
+              <h3>AT&T Mobile App Hackathon</h3>
+              <p>Manhattan, NY</p>
             </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="signupName">Your name</label>
-                  <input type="text" class="form-control" id="signupName" placeholder="Name">
-                </div>
-                <div class="form-group">
-                  <label for="signupEmail">Email address</label>
-                  <input type="email" class="form-control" id="signupEmail" placeholder="Email">
-                </div>
-                <div class="form-group">
-                  <label for="signupPassword">Password</label>
-                  <input type="password" class="form-control" id="signupPassword" placeholder="Password">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="submi t" id="modalSignupBtn" class="btn btn-success">SIGN UP</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End Sign Up Modal -->
-
-      <!-- Log In Modal -->
-      <div class="modal bs-example-modal-sm fade " id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLogin">
-        <div class="modal-dialog modal-sm" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="modalLogin">LOGIN</h4>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="loginEmail">Email address</label>
-                  <input type="email" class="form-control" id="loginEmail" placeholder="Email">
-                </div>
-                <div class="form-group">
-                  <label for="loginPassword">Password</label>
-                  <input type="password" class="form-control" id="loginPassword" placeholder="Password">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" id="login-btn" class="btn btn-success">LOGIN</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End Log In Modal -->
-
-      <!-- Create Event Modal -->
-      <div class="modal bs-example-modal-sm fade " id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Sign up</h4>
-            </div>
-            <div class="modal-body">
-             <form id="createEvent" class="form-horizontal">
-              <div class="form-group">
-                <label for="eventTitle" class="col-sm-2 control-label">EVENT TITLE</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="eventTitle" name="eventTitle" placeholder="Give it a short distinct name">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="eventType" class="col-sm-2 control-label">EVENT TYPE</label>
-                <div id="eventType" class="col-sm-10">
-                  <select class="form-control" name="eventType">
-                    <option>Select the type of the event</option>
-                    <option>Class, Training or Workshop</option>
-                    <option>Concert or Performance</option>
-                    <option>Festival or Fair</option>
-                    <option>Game or Competition</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="eventHost" class="col-sm-2 control-label">EVENT HOST</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="eventHost" name="eventHost" placeholder="Who's organizing this event?">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="eventStart" class="col-sm-2 control-label">START</label>
-                <div class="col-sm-10">
-                  <input type="datetime-local" class="form-control" name="eventStart" id="eventStart">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="eventEnd" class="col-sm-2 control-label">END</label>
-                <div class="col-sm-10">
-                  <input type="datetime-local" class="form-control" name="eventEnd" id="eventEnd">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="eventLocation" class="col-sm-2 control-label">LOCATION</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="eventLocation" name="eventLocation" placeholder="Specify where it's held">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="eventGuest" class="col-sm-2 control-label">GUEST LIST</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="eventGuest" name="eventGuest" placeholder="Who will be in this event?">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="eventMessage" class="col-sm-2 control-label">OPTIONAL MESSAGES</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="eventMessage" name="eventMessage" placeholder="">
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" id="btn-createEvent" class="btn btn-success">CREATE</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- End Sign Up Modal -->
+  </div>
+  <!-- Sign Up Modal -->
+  <div class="modal bs-example-modal-sm fade " id="modalSignup" tabindex="-1" role="dialog" aria-labelledby="modalSignup">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="modalSignupName">Your name</label>
+              <input type="text" class="form-control" id="modalSignupName" placeholder="Name" autofocus required>
+            </div>
+            <div class="form-group">
+              <label for="modalSignupEmail">Email address</label>
+              <input type="email" class="form-control" id="modalSignupEmail" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <label for="modalSignupPassword">Password</label>
+              <input type="password" class="form-control" id="modalSignupPassword" placeholder="Password" minlength=5 maxlength=30 required>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" id="modalSignupBtn" class="btn btn-success">SIGN UP</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Sign Up Modal -->
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='https://www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>
+  <!-- Log In Modal -->
+  <div class="modal bs-example-modal-sm fade " id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLogin">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="modalLogin">LOGIN</h4>
+        </div>
+        <div class="modal-body">
+          <form id="formLogin">
+            <div class="form-group">
+              <label for="modalLoginEmail">Email address</label>
+              <input type="email" class="form-control" id="modalLoginEmail" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <label for="modalLoginPassword">Password</label>
+              <input type="password" class="form-control" id="modalLoginPassword" placeholder="Password" required>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" id="modalLoginBtn" class="btn btn-success">LOGIN</button>
+            </div>
+          </form>
+        </div>
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+      </div>
+    </div>
+  </div>
+  <!-- End Log In Modal -->
 
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <!-- Create Event Modal -->
+  <div class="modal bs-example-modal-sm fade " id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+        </div>
+        <div class="modal-body">
+         <form id="createEvent" class="form-horizontal">
+          <div class="form-group">
+            <label for="eventTitle" class="col-sm-2 control-label">EVENT TITLE</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="eventTitle" name="eventTitle" placeholder="Give it a short distinct name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eventType" class="col-sm-2 control-label">EVENT TYPE</label>
+            <div id="eventType" class="col-sm-10">
+              <select class="form-control" name="eventType">
+                <option>Select the type of the event</option>
+                <option>Class, Training or Workshop</option>
+                <option>Concert or Performance</option>
+                <option>Festival or Fair</option>
+                <option>Game or Competition</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eventHost" class="col-sm-2 control-label">EVENT HOST</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="eventHost" name="eventHost" placeholder="Who's organizing this event?">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eventStart" class="col-sm-2 control-label">START</label>
+            <div class="col-sm-10">
+              <input type="datetime-local" class="form-control" name="eventStart" id="eventStart">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eventEnd" class="col-sm-2 control-label">END</label>
+            <div class="col-sm-10">
+              <input type="datetime-local" class="form-control" name="eventEnd" id="eventEnd">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eventLocation" class="col-sm-2 control-label">LOCATION</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="eventLocation" name="eventLocation" placeholder="Specify where it's held">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eventGuest" class="col-sm-2 control-label">GUEST LIST</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="eventGuest" name="eventGuest" placeholder="Who will be in this event?">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eventMessage" class="col-sm-2 control-label">OPTIONAL MESSAGES</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="eventMessage" name="eventMessage" placeholder="">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" id="modalCreateEventBtn" class="btn btn-success">CREATE</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Sign Up Modal -->
 
-    <!-- build:js scripts/plugins.js -->
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
-    <!-- endbuild -->
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+  e.src='https://www.google-analytics.com/analytics.js';
+  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>
 
-    <!-- build:js scripts/main.js -->
-    <script src="scripts/main.js"></script>
-    <!-- endbuild -->
-  </body>
-  </html>
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
+<!-- build:js scripts/plugins.js -->
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+<!-- endbuild -->
+
+<!-- build:js scripts/main.js -->
+<script src="scripts/main.js"></script>
+<!-- endbuild -->
+</body>
+</html>

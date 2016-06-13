@@ -8,128 +8,124 @@ var config = {
   storageBucket: "scorching-fire-2347.appspot.com",};
   firebase.initializeApp(config);
 
-//
-$( document ).ready(function() {
-  
-  //header
+  $( document ).ready(function() {
+
+    $.fn.serializeObject = function() {
+      var o = {};
+      var a = this.serializeArray();
+      $.each(a, function() {
+        if (o[this.name]) {
+          if (!o[this.name].push) {
+            o[this.name] = [o[this.name]];
+          }
+          o[this.name].push(this.value || '');
+        } else {
+          o[this.name] = this.value || '';
+        }
+      });
+      return o;
+    };
+
+//Auth State header
+firebase.auth().onAuthStateChanged(function(user) {
   var headerLoginBtn = $("#headerLoginBtn");
   var headerSignupBtn = $("#headerSignupBtn");
   var headerUserBtn = $("#headerUserBtn");
   var headerUsername = $("#headerUsername");
   var headerLogoutBtn = $("#headerLogoutBtn");
 
-  //main content
-  var createEventBtn = $("#btn-createEvent");
-
-  //modal
-  var modalSignupBtn = $("#modalSignupBtn");
-  var loginBtn = $("#login-btn");
-
-
-function userInit(){
-
-}
-
-function publicInit(){
-
-}
-
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-          firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-            console.log(snapshot.val());
-            headerUsername.text(snapshot.val().username);
-          });
-          headerUserBtn.show(0);
-    } else {
-          console.log('logout');
-    }
-});
-
-firebase.database().ref('events/').once('value').then(function(snapshot){
-            console.log(snapshot.val());
-            $.each(snapshot.val(), function( key, value ) {
-                    // console.log(key + ": " + value.eventType);
-                    $("#showEvent").append('<div class="col-xs-12 col-md-6"><div class="thumbnail"><div class="caption"><p>' + 
-                      value.eventStart
-                      +'</p><h3>'+
-                      value.eventTitle
-                      + '</h3><p>' +
-                      value.eventLocation
-                      + '</p></div></div></div>');
-        }); 
-});
-
-function IssueTracker() {
-  this.issues = [];
-}
-IssueTracker.prototype = {
-  add: function (issue) {
-    this.issues.push(issue);
-  },
-  retrieve: function () {
-    var message = "";
-    switch (this.issues.length) {
-      case 0:
-        // do nothing because message is already ""
-        break;
-      case 1:
-        message = "Please correct the following issue:\n" + this.issues[0];
-        break;
-      default:
-        message = "Please correct the following issues:\n" + this.issues.join("\n");
-            console.log(this.issues);
-            console.log(message);
-        break;
-    }
-    return message;
+  if (user) {
+    firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
+      headerLoginBtn.addClass("hide");
+      headerSignupBtn.addClass("hide");
+      headerUsername.text('Hi, ' + snapshot.val().username).append('<span class="caret"></span>');
+      headerUserBtn.removeClass("hide");
+    });
+  } else {
+    headerLoginBtn.removeClass("hide");
+    headerSignupBtn.removeClass("hide");
+    headerUserBtn.addClass("hide");
   }
-};
 
-function init(){
-
-        modalSignupBtn.click(function(){
-          var signupName = $("#signupName").val();
-          var signupEmail = $("#signupEmail").val();
-          var signupPassword = $("#signupPassword").val();
-          createUser(signupEmail, signupPassword, signupName);
-        });
-
-        loginBtn.click(function(){
-          var loginEmail = $("#loginEmail").val();
-          var loginPassword = $("#loginPassword").val();
-          login(loginEmail, loginPassword);
-          $('#logInModal').modal('hide');
-        });
-
-        headerLogoutBtn.click(function(){
-          logout();
-        });
-      }
-
-      createEventBtn.click(function(){
-        var user = firebase.auth().currentUser;
-        console.log('create Event');
-        writeNewPost(user.uid, 'test','test', 'test');
+  headerLogoutBtn.click(function(){
+    logout();
+    function logout(){
+      firebase.auth().signOut().then(function() {
+        console.log('logout');
+      }, function(error) {
+        console.log('error');
       });
+    }
+  });
+}); 
 
-      $.fn.serializeObject = function() {
-        var o = {};
-        var a = this.serializeArray();
-        $.each(a, function() {
-          if (o[this.name]) {
-            if (!o[this.name].push) {
-              o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
-          } else {
-            o[this.name] = this.value || '';
-          }
-        });
-        return o;
-      };
+//event table
+firebase.database().ref('events/').once('value').then(function(snapshot){
+  console.log(snapshot.val());
+  $.each(snapshot.val(), function( key, value ) {
+    $("#showEvent").append('<div class="col-xs-12 col-md-6"><div class="thumbnail"><div class="caption"><p>' + 
+      value.eventStart
+      + '</p><h3>' +
+      value.eventTitle
+      + '</h3><p>' +
+      value.eventLocation
+      + '</p></div></div></div>');
+  }); 
+});
 
-      function writeNewPost(uid, username, title, body) {
+//modal signup
+var modalSignupBtn = $("#modalSignupBtn");
+
+modalSignupBtn.click(function(){
+  var modalSignupNameVal = $("#modalSignupName").val();
+  var modalSignupEmailVal = $("#modalSignupEmail").val();
+  var modalSignupPasswordVal = $("#modalSignupPassword").val();
+  createUser(modalSignupNameVal, modalSignupEmailVal, modalSignupPasswordVal);
+
+  function createUser(email, password, name){
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode + errorMessage);
+    }).then(function(user){
+      console.log('successfully created the user.');
+      writeUserData(user.uid,name);
+    })
+  }
+
+  function writeUserData(userId, name) {
+    firebase.database().ref('users/' + userId).set({
+      username: name,
+    });
+  }
+});
+
+//modal login
+var modalLoginBtn = $("#modalLoginBtn");
+
+modalLoginBtn.click(function(){
+  var modalLoginEmailVal = $("#modalLoginEmail").val();
+  var modalLoginPasswordVal = $("#modalLoginPassword").val();
+  login(modalLoginEmailVal, modalLoginPasswordVal);
+  function login(email, password){
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      $("#modalLoginEmail")[0].setCustomValidity(errorMessage);
+    }).then(function(user){
+      $('#modalLogin').modal('hide');
+    });
+  }
+});
+
+//modal create event
+var modalCreateEventBtn = $("#modalCreateEventBtn");
+
+modalCreateEventBtn.click(function(){
+  var user = firebase.auth().currentUser;
+  console.log('create Event');
+  writeNewPost(user.uid, 'test','test', 'test');
+  function writeNewPost(uid, username, title, body) {
   // A post entry.
   var formData = $('#createEvent').serializeObject();
   // Get a key for a new Post.
@@ -140,45 +136,11 @@ function init(){
   updates['/users/' + uid + '/events/' + newPostKey] = formData;
 
   return firebase.database().ref().update(updates);
-}
+  }
+});
 
 
-function createUser(email, password, name){
-  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode + errorMessage);
-  }).then(function(user){
-    console.log('successfully created the user.');
-    writeUserData(user.uid,name);
-  })
-}
 
-function writeUserData(userId, name) {
-  firebase.database().ref('users/' + userId).set({
-    username: name,
-  });
-}
-
-function login(email, password){
-  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorMessage);
-    $("#loginEmail").get(0).setCustomValidity(errorMessage);
-  }).then(function(){
-  });
-}
-
-function logout(){
-  firebase.auth().signOut().then(function() {
-    console.log('logout');
-  }, function(error) {
-    console.log('error');
-  });
-}
-
-init();
 
 });
 

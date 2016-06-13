@@ -17,6 +17,10 @@ body{
 	font-family: 'Open Sans', sans-serif;
 }
 
+.hide{
+	display:none;
+}
+
 .header{
 	height:80px;
 	&__logo{
@@ -47,10 +51,35 @@ body{
 			cursor:pointer;
 			color:black;
 			width:60px;
-			font-size:12px;
+			font-size:14px;
 			font-weight:300;
 			line-height:60px;
 			margin:10px 0 10px 0;
+		}
+
+		.dropdown{
+			.dropdown-toggle{	
+				cursor:pointer;
+				color:black;
+				width:60px;
+				font-size:14px;
+				font-weight:300;
+				line-height:60px;
+				margin:10px 0 10px 0;
+				text-align:center;
+				padding:0;
+				border-radius:0px;
+				&:hover{
+					color:black;
+					background:none;
+					text-decoration: underline;
+				}
+				&:active{
+					color:black;
+					background:none;
+					text-decoration: underline;
+				}
+			}
 		}
 	}
 }
@@ -71,7 +100,7 @@ body{
 			font-size:48px;
 			font-weight:400;
 			color:white;
-			padding-bottom:20px;
+			padding:0 20px 20px 20px;
 		}
 		a{	
 			cursor:pointer;
@@ -132,7 +161,16 @@ body{
 			&__btn{
 				color:black;
 				width:100px;
-				font-size:14px;
+				font-size:20px;
+				line-height:60px;
+				margin:20px 0 20px 0;
+			}
+		}
+		.dropdown{
+			.dropdown-toggle{	
+				width:100px;
+				font-size:20px;
+				font-weight:300;
 				line-height:60px;
 				margin:20px 0 20px 0;
 			}
