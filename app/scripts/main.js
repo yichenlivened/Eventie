@@ -83,14 +83,14 @@ modalSignupBtn.click(function(){
   createUser(modalSignupNameVal, modalSignupEmailVal, modalSignupPasswordVal);
 
   function createUser(email, password, name){
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
+      console.log('successfully created the user.');
+
+    }).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
       console.log(errorCode + errorMessage);
-    }).then(function(user){
-      console.log('successfully created the user.');
-      writeUserData(user.uid,name);
-    })
+    });
   }
 
   function writeUserData(userId, name) {
@@ -108,12 +108,12 @@ modalLoginBtn.click(function(){
   var modalLoginPasswordVal = $("#modalLoginPassword").val();
   login(modalLoginEmailVal, modalLoginPasswordVal);
   function login(email, password){
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
+      $('#modalLogin').modal('hide');
+    }).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
       $("#modalLoginEmail")[0].setCustomValidity(errorMessage);
-    }).then(function(user){
-      $('#modalLogin').modal('hide');
     });
   }
 });
