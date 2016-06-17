@@ -6,9 +6,10 @@ var config = {
   authDomain: "scorching-fire-2347.firebaseapp.com",
   databaseURL: "https://scorching-fire-2347.firebaseio.com",
   storageBucket: "scorching-fire-2347.appspot.com",};
-  firebase.initializeApp(config);
 
-  $( document ).ready(function() {
+firebase.initializeApp(config);
+
+$( document ).ready(function() {
 
     $.fn.serializeObject = function() {
       var o = {};
@@ -23,8 +24,12 @@ var config = {
           o[this.name] = this.value || '';
         }
       });
-      return o;
-    };
+      return o;};
+
+      function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      }
 
 //Auth State header
 firebase.auth().onAuthStateChanged(function(user) {
@@ -73,49 +78,156 @@ firebase.database().ref('events/').once('value').then(function(snapshot){
   }); 
 });
 
+//issue tracker
+function IssueTracker() {
+  this.issues = [];
+}
+
+IssueTracker.prototype = {
+  add: function (issue) {
+    this.issues.push(issue);
+  },
+  retrieve: function () {
+    var message = "";
+    switch (this.issues.length) {
+      case 0:
+        // do nothing because message is already ""
+        break;
+        case 1:
+        message = "Please correct the following issue:\n" + this.issues[0];
+        break;
+        default:
+        message = "Please correct the following issues:\n" + this.issues.join("\n");
+        console.log(this.issues);
+        console.log(message);
+        break;
+      }
+      return message;
+    }
+  };
+
 //modal signup
 var modalSignupBtn = $("#modalSignupBtn");
 
 modalSignupBtn.click(function(){
-  var modalSignupNameVal = $("#modalSignupName").val();
-  var modalSignupEmailVal = $("#modalSignupEmail").val();
-  var modalSignupPasswordVal = $("#modalSignupPassword").val();
-  createUser(modalSignupNameVal, modalSignupEmailVal, modalSignupPasswordVal);
 
-  function createUser(email, password, name){
+  var modalSignupName = $("#modalSignupName");
+  var modalSignupEmail = $("#modalSignupEmail");
+  var modalSignupPassword = $("#modalSignupPassword");
+
+  //get input value
+  var modalSignupNameVal = modalSignupName.val();
+  var modalSignupEmailVal = modalSignupEmail.val();
+  var modalSignupPasswordVal = modalSignupPassword.val();
+
+  //add issue tracker
+  var modalSignupNameTraker = new IssueTracker();
+  var modalSignupEmailTraker = new IssueTracker();
+  var modalSignupPasswordTraker = new IssueTracker();
+
+  function checkrequirements(){
+    if(modalSignupNameVal.length< 3){
+      modalSignupNameTraker.add("Your name should be greater than 3 characters.");
+    } else if(modalSignupNameVal.length > 20){
+      modalSignupNameTraker.add("Your name should be fewer than 20 characters.");
+    }
+
+    if(!validateEmail(modalSignupEmailVal)) {
+      modalSignupEmailTraker.add("Email address is badly formatted.");
+    }
+
+    if(modalSignupPasswordVal.length<5){
+      modalSignupPasswordTraker.add("Password should be greater than 5 characters.");
+    } else if(modalSignupPasswordVal.length>20){
+      modalSignupPasswordTraker.add("Password should be fewer than 20 characters.");
+    }
+  };
+
+  function createUser(name, email, password){
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
+      writeUserData(user.uid, name);
       console.log('successfully created the user.');
-
+      console.log(user);
     }).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log(errorCode + errorMessage);
+      modalSignupEmail[0].setCustomValidity(errorMessage);
     });
   }
 
   function writeUserData(userId, name) {
     firebase.database().ref('users/' + userId).set({
-      username: name,
+      username: name
     });
   }
+
+  checkrequirements();
+
+  var modalSignupNameIssue = modalSignupNameTraker.retrieve();
+  var modalSignupEmailIssue = modalSignupEmailTraker.retrieve();
+  var modalSignupPasswordIssue = modalSignupPasswordTraker.retrieve();
+
+  if(modalSignupNameIssue.length + modalSignupEmailIssue.length + modalSignupPasswordIssue.length === 0){
+    createUser(modalSignupNameVal, modalSignupEmailVal, modalSignupPasswordVal);
+  } else {
+    modalSignupName[0].setCustomValidity(modalSignupNameIssue);
+    modalSignupEmail[0].setCustomValidity(modalSignupEmailIssue);
+    modalSignupPassword[0].setCustomValidity(modalSignupPasswordIssue);
+  };
+
 });
+
 
 //modal login
 var modalLoginBtn = $("#modalLoginBtn");
 
 modalLoginBtn.click(function(){
+
+  var modalLoginEmail = $("#modalLoginEmail");
+  var modalLoginPassword = $("#modalLoginPassword");
+
+  //get input val value
   var modalLoginEmailVal = $("#modalLoginEmail").val();
   var modalLoginPasswordVal = $("#modalLoginPassword").val();
-  login(modalLoginEmailVal, modalLoginPasswordVal);
+
+  //add issue tracker
+  var modalLoginEmailTraker = new IssueTracker();
+  var modalLoginPasswordTraker = new IssueTracker();
+
+  function checkrequirements(){
+    if(!validateEmail(modalLoginEmailVal)) {
+      modalLoginEmailTraker.add("Email address is badly formatted.");
+    }
+
+    if(modalLoginPasswordVal.length<5){
+      modalLoginPasswordTraker.add("Password should be greater than 5 characters.");
+    } else if(modalLoginPasswordVal.length>20){
+      modalLoginPasswordTraker.add("Password should be fewer than 20 characters.");
+    }
+  };
+
   function login(email, password){
     firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
-      $('#modalLogin').modal('hide');
+      console.log("successfully log in.");
     }).catch(function(error) {
       var errorCode = error.code;
       var errorMessage = error.message;
-      $("#modalLoginEmail")[0].setCustomValidity(errorMessage);
+      modalLoginEmail[0].setCustomValidity(errorMessage);
     });
   }
+
+  checkrequirements();
+
+  var modalLoginEmailIssue = modalLoginEmailTraker.retrieve();
+  var modalLoginPasswordIssue = modalLoginPasswordTraker.retrieve();
+
+  if(modalLoginEmailIssue.length + modalLoginPasswordIssue.length === 0){
+    login(modalLoginEmailVal, modalLoginPasswordVal);
+  } else {
+    modalLoginEmail[0].setCustomValidity(modalLoginEmailIssue);
+    modalLoginPassword[0].setCustomValidity(modalLoginPasswordIssue);
+  };
+
 });
 
 //modal create event
@@ -136,7 +248,7 @@ modalCreateEventBtn.click(function(){
   updates['/users/' + uid + '/events/' + newPostKey] = formData;
 
   return firebase.database().ref().update(updates);
-  }
+}
 });
 
 
