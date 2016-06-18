@@ -155,12 +155,14 @@
         </div>
         <div class="modal-body">
          <form id="createEvent" class="form-horizontal">
+
           <div class="form-group">
             <label for="modalEventTitle" class="col-sm-2 control-label">EVENT TITLE *</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="modalEventTitle" name="eventTitle" placeholder="Give it a short distinct name." autofocus required>
             </div>
           </div>
+
           <div class="form-group">
             <label for="modalEventType" class="col-sm-2 control-label">EVENT TYPE *</label>
             <div class="col-sm-10">
@@ -174,36 +176,49 @@
               </select>
             </div>
           </div>
+
           <div class="form-group">
             <label for="ModalEventHost" class="col-sm-2 control-label">EVENT HOST *</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="ModalEventHost" name="eventHost" placeholder="Who's organizing this event?" required>
             </div>
           </div>
+
           <div class="form-group">
-            <label for="modalEventDate" class="col-sm-2 control-label">Date *</label>
+            <label for="modalEventStart" class="col-sm-2 control-label">STARTS *</label>
             <div class="col-sm-10">
-            <input type="date" class="form-control" id="modalEventDate" name="eventDate" required>
+            <input type="date" class="form-control" id="modalEventStart" name="eventDate" required>
             </div>
           </div>
+
+          <div class="form-group">
+            <label for="modalEventEnd" class="col-sm-2 control-label">ENDS *</label>
+            <div class="col-sm-10">
+            <input type="date" class="form-control" id="modalEventEnd" name="eventDate" required>
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="modalEventLocation" class="col-sm-2 control-label">LOCATION *</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="modalEventLocation" name="eventLocation" placeholder="Specify where it's held" required>
             </div>
           </div>
+
           <div class="form-group">
             <label for="modalEventGuest" class="col-sm-2 control-label">GUEST LIST *</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="modalEventGuest" name="eventGuest" placeholder="Who will be in this event?" required>
             </div>
           </div>
+
           <div class="form-group">
             <label for="modalEventMessage" class="col-sm-2 control-label">OPTIONAL MESSAGES</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="modalEventMessage" name="eventMessage" placeholder="">
             </div>
           </div>
+
           <div class="modal-footer">
             <button type="submit" id="modalSubmitBtn" class="btn btn-success">SUBMIT</button>
           </div>
