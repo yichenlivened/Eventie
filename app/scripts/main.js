@@ -300,19 +300,19 @@ modalSubmitBtn.click(function(){
   function checkrequirements(){
 
     if(modalEventTitleVal.length<3){
-      modalEventTitleTraker.add("Event title should be greater than 3 characters.");
+      modalEventTitleTraker.add('Event title should be greater than 3 characters.');
     } else if(modalEventTitleVal.length>20){
-      modalEventTitleTraker.add("Event title should be fewer than 20 characters.");
+      modalEventTitleTraker.add('Event title should be fewer than 20 characters.');
     };
 
-    if(modalEventTypeVal==="Select the type of the event"){
-      modalEventTypeTraker.add("Please select an event type.");
+    if(modalEventTypeVal==='Select the type of the event'){
+      modalEventTypeTraker.add('Please select an event type.');
     }
 
     if(modalEventHostVal.length<3){
-      modalEventHostTraker.add("Host name should be greater than 3 characters.");
+      modalEventHostTraker.add('Host name should be greater than 3 characters.');
     } else if(modalEventHostVal.length>20){
-      modalEventHostTraker.add("Host name shouold be fewer than 20 characters.");
+      modalEventHostTraker.add('Host name shouold be fewer than 20 characters.');
     }
   }
   console.log(modalEventTitleVal);
