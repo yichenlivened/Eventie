@@ -10,7 +10,9 @@
   <!-- Place favicon.ico in the root directory -->
 
   <!-- build:css styles/vendor.css -->
+
   <!-- bower:css -->
+
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -40,7 +42,7 @@
               <li><a href="#">Your Profile</a></li>
               <li><a id="headerLogoutBtn" href="#">Log Out</a></li>
             </ul>
-        </li>
+          </li>
         </ul>
       </div>
     </header>
@@ -48,7 +50,7 @@
     <article class="jumbotron">
       <div class="jumbotron__create">
         <p>Every summer has its own story.</p>
-        <a data-toggle="modal" data-target="#createEventModal">
+        <a id="modalCreateEventBtn">
           CREATE EVENT
         </a>
       </div>
@@ -86,19 +88,24 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+          <a class="modal-title" id="modalRLogin">Already have account?</a>
         </div>
         <div class="modal-body">
-          <form>
+          <form autocomplete="on">
             <div class="form-group">
-              <label for="modalSignupName">Your name</label>
+              <label for="modalSignupName">Your name *</label>
               <input type="text" class="form-control" id="modalSignupName" placeholder="Name" autofocus required>
             </div>
             <div class="form-group">
-              <label for="modalSignupEmail">Email address</label>
+              <label for="modalSignupJob">Job title</label>
+              <input type="text" class="form-control" id="modalSignupJob" placeholder="What do you do?">
+            </div>
+            <div class="form-group">
+              <label for="modalSignupEmail">Email address *</label>
               <input type="email" class="form-control" id="modalSignupEmail" placeholder="Email" required>
             </div>
             <div class="form-group">
-              <label for="modalSignupPassword">Password</label>
+              <label for="modalSignupPassword">Password *</label>
               <input type="password" class="form-control" id="modalSignupPassword" placeholder="Password" required>
             </div>
             <div class="modal-footer">
@@ -120,10 +127,10 @@
           <h4 class="modal-title" id="modalLogin">LOGIN</h4>
         </div>
         <div class="modal-body">
-          <form id="formLogin">
+          <form id="formLogin" autocomplete="on">
             <div class="form-group">
               <label for="modalLoginEmail">Email address</label>
-              <input type="email" class="form-control" id="modalLoginEmail" placeholder="Email" required>
+              <input type="email" class="form-control" id="modalLoginEmail" placeholder="Email" autofocus required>
             </div>
             <div class="form-group">
               <label for="modalLoginPassword">Password</label>
@@ -141,25 +148,25 @@
   <!-- End Log In Modal -->
 
   <!-- Create Event Modal -->
-  <div class="modal bs-example-modal-sm fade " id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal bs-example-modal-sm fade " id="modalCreateEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+          <h4 class="modal-title" id="myModalLabel">CREATE YOUR EVENT</h4>
         </div>
         <div class="modal-body">
          <form id="createEvent" class="form-horizontal">
           <div class="form-group">
-            <label for="eventTitle" class="col-sm-2 control-label">EVENT TITLE</label>
+            <label for="modalEventTitle" class="col-sm-2 control-label">EVENT TITLE *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="eventTitle" name="eventTitle" placeholder="Give it a short distinct name">
+              <input type="text" class="form-control" id="modalEventTitle" name="eventTitle" placeholder="Give it a short distinct name." autofocus required>
             </div>
           </div>
           <div class="form-group">
-            <label for="eventType" class="col-sm-2 control-label">EVENT TYPE</label>
-            <div id="eventType" class="col-sm-10">
-              <select class="form-control" name="eventType">
+            <label for="modalEventType" class="col-sm-2 control-label">EVENT TYPE *</label>
+            <div class="col-sm-10">
+              <select id="modalEventType" class="form-control" name="eventType" required>
                 <option>Select the type of the event</option>
                 <option>Class, Training or Workshop</option>
                 <option>Concert or Performance</option>
@@ -170,46 +177,41 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="eventHost" class="col-sm-2 control-label">EVENT HOST</label>
+            <label for="ModalEventHost" class="col-sm-2 control-label">EVENT HOST *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="eventHost" name="eventHost" placeholder="Who's organizing this event?">
+              <input type="text" class="form-control" id="ModalEventHost" name="eventHost" placeholder="Who's organizing this event?" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="eventStart" class="col-sm-2 control-label">START</label>
+            <label for="modalEventDate" class="col-sm-2 control-label">Date *</label>
             <div class="col-sm-10">
-              <input type="datetime-local" class="form-control" name="eventStart" id="eventStart">
+            <input type="date" class="form-control" id="modalEventDate" name="eventDate" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="eventEnd" class="col-sm-2 control-label">END</label>
+            <label for="modalEventLocation" class="col-sm-2 control-label">LOCATION *</label>
             <div class="col-sm-10">
-              <input type="datetime-local" class="form-control" name="eventEnd" id="eventEnd">
+              <input type="text" class="form-control" id="modalEventLocation" name="eventLocation" placeholder="Specify where it's held" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="eventLocation" class="col-sm-2 control-label">LOCATION</label>
+            <label for="modalEventGuest" class="col-sm-2 control-label">GUEST LIST *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="eventLocation" name="eventLocation" placeholder="Specify where it's held">
+              <input type="text" class="form-control" id="modalEventGuest" name="eventGuest" placeholder="Who will be in this event?" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="eventGuest" class="col-sm-2 control-label">GUEST LIST</label>
+            <label for="modalEventMessage" class="col-sm-2 control-label">OPTIONAL MESSAGES</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="eventGuest" name="eventGuest" placeholder="Who will be in this event?">
+              <input type="text" class="form-control" id="modalEventMessage" name="eventMessage" placeholder="">
             </div>
           </div>
-          <div class="form-group">
-            <label for="eventMessage" class="col-sm-2 control-label">OPTIONAL MESSAGES</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="eventMessage" name="eventMessage" placeholder="">
-            </div>
+          <div class="modal-footer">
+            <button type="submit" id="modalSubmitBtn" class="btn btn-success">SUBMIT</button>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="submit" id="modalCreateEventBtn" class="btn btn-success">CREATE</button>
-      </div>
+
     </div>
   </div>
 </div>
