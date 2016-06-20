@@ -1,0 +1,6 @@
+{
+  "name": "Eventie",
+  "tagline": "Eventie is a Meet-Up Event Planner, including account creation, event creation and event display.",
+  "body": "# Eventie\r\nEventie is a Meet-Up Event Planner, including account creation, event creation and event display.\r\n\r\n# Install\r\n```\r\nnpm insall\r\n\r\nbower install\r\n\r\ngulp serve\r\n```\r\n\r\n# Issues\r\n\r\n# License\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
