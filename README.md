@@ -17,6 +17,10 @@ gulp serve
 
 [Web Tooling and Automation](https://classroom.udacity.com/nanodegrees/nd802/parts/8021345401/modules/555574864975462/lessons/5555748649239847/concepts/55243086020923)
 
+[Provide real-time validation](https://developers.google.com/web/fundamentals/design-and-ui/input/forms/provide-real-time-validation?hl=en#show-feedback-in-real-time)
+
+[Constraint Validation: Native Client Side Validation for Web Forms](http://www.html5rocks.com/en/tutorials/forms/constraintvalidation/)
+
 [Udacity Git Commit Message Style Guide](http://udacity.github.io/git-styleguide/)
 
 [Basic writing and formatting syntax](https://help.github.com/articles/basic-writing-and-formatting-syntax/)
