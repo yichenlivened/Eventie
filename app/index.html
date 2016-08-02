@@ -36,8 +36,8 @@
           <li id="headerUserBtn" class="dropdown hide">
             <a id="headerUsername" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li><a href="#">Your Events</a></li>
-              <li><a href="#">Your Profile</a></li>
+              <!--<li><a href="#">Your Events</a></li>-->
+              <!--<li><a href="#">Your Profile</a></li>-->
               <li><a id="headerLogoutBtn" href="#">Log Out</a></li>
             </ul>
           </li>
@@ -48,7 +48,7 @@
     <article class="jumbotron">
       <div class="jumbotron__create">
         <p>Every summer has its own story.</p>
-        <a id="modalCreateEventBtn">
+        <a id="createEventBtn">
           CREATE EVENT
         </a>
       </div>
@@ -57,24 +57,6 @@
     <div class="container eventTable">
       <h2>EVENTS IN: NEW YORK CITY</h2>
       <div id="showEvent" class="row">
-        <div class="col-xs-12 col-md-6">
-          <div class="thumbnail">
-            <div class="caption">
-              <p>Friday, June 24, 2016 at 6:00 PM</p>
-              <h3>AT&T Mobile App Hackathon</h3>
-              <p>Manhattan, NY</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <div class="thumbnail">
-            <div class="caption">
-              <p>Friday, June 24, 2016 at 6:00 PM </p>
-              <h3>AT&T Mobile App Hackathon</h3>
-              <p>Manhattan, NY</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -122,7 +104,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="link-Login">LOGIN</h4>
+          <h4 class="modal-title">LOGIN</h4>
         </div>
         <div class="modal-body">
           <form id="formLogin" autocomplete="on">
@@ -135,7 +117,7 @@
               <input type="password" class="form-control" id="modalLoginPassword" placeholder="Password" required>
             </div>
             <div class="modal-footer">
-              <button type="submit" id="modalLoginBtn" class="btn btn-success">LOGIN</button>
+              <button type="submit" class="btn btn-success">LOGIN</button>
             </div>
           </form>
         </div>
@@ -157,16 +139,16 @@
          <form id="createEvent" class="form-horizontal">
 
           <div class="form-group">
-            <label for="modalEventTitle" class="col-sm-2 control-label">EVENT TITLE *</label>
+            <label for="modalCreateEventTitle" class="col-sm-2 control-label">EVENT TITLE *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="modalEventTitle" name="eventTitle" placeholder="Give it a short distinct name." autofocus required>
+              <input type="text" class="form-control" id="modalCreateEventTitle" name="eventTitle" placeholder="Give it a short distinct name." required>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="modalEventType" class="col-sm-2 control-label">EVENT TYPE *</label>
+            <label for="modalCreateEventType" class="col-sm-2 control-label">EVENT TYPE *</label>
             <div class="col-sm-10">
-              <select id="modalEventType" class="form-control" name="eventType" required>
+              <select id="modalCreateEventType" class="form-control" name="eventType" required>
                 <option>Select the type of the event</option>
                 <option>Class, Training or Workshop</option>
                 <option>Concert or Performance</option>
@@ -178,49 +160,49 @@
           </div>
 
           <div class="form-group">
-            <label for="ModalEventHost" class="col-sm-2 control-label">EVENT HOST *</label>
+            <label for="modalCreateEventHost" class="col-sm-2 control-label">EVENT HOST *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="ModalEventHost" name="eventHost" placeholder="Who's organizing this event?" required>
+              <input type="text" class="form-control" id="modalCreateEventHost" name="eventHost" placeholder="Who's organizing this event?" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="modalEventStart" class="col-sm-2 control-label">STARTS *</label>
+            <label for="modalCreateEventStart" class="col-sm-2 control-label">STARTS *</label>
             <div class="col-sm-10">
-            <input type="date" class="form-control" id="modalEventStart" name="eventDate" required>
+            <input type="date" class="form-control" id="modalCreateEventStart" name="eventDate" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="modalEventEnd" class="col-sm-2 control-label">ENDS *</label>
+            <label for="modalCreateEventEnd" class="col-sm-2 control-label">ENDS *</label>
             <div class="col-sm-10">
-            <input type="date" class="form-control" id="modalEventEnd" name="eventDate" required>
+            <input type="date" class="form-control" id="modalCreateEventEnd" name="eventDate" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="modalEventLocation" class="col-sm-2 control-label">LOCATION *</label>
+            <label for="modalCreateEventLocation" class="col-sm-2 control-label">LOCATION *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="modalEventLocation" name="eventLocation" placeholder="Specify where it's held" required>
+              <input type="text" class="form-control" id="modalCreateEventLocation" name="eventLocation" placeholder="Specify where it's held" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="modalEventGuest" class="col-sm-2 control-label">GUEST LIST *</label>
+            <label for="modalCreateEventGuest" class="col-sm-2 control-label">GUEST LIST *</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="modalEventGuest" name="eventGuest" placeholder="Who will be in this event?" required>
+              <input type="text" class="form-control" id="modalCreateEventGuest" name="eventGuest" placeholder="Who will be in this event?" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="modalEventMessage" class="col-sm-2 control-label">OPTIONAL MESSAGES</label>
+            <label for="modalCreateEventMessage" class="col-sm-2 control-label">OPTIONAL MESSAGES</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="modalEventMessage" name="eventMessage" placeholder="">
+              <input type="text" class="form-control" id="modalCreateEventMessage" name="eventMessage" placeholder="">
             </div>
           </div>
 
           <div class="modal-footer">
-            <button type="submit" id="modalSubmitBtn" class="btn btn-success">SUBMIT</button>
+            <button type="submit" id="modalCreateEventBtn" class="btn btn-success">SUBMIT</button>
           </div>
         </form>
       </div>

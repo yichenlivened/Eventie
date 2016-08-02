@@ -17,7 +17,7 @@ $(document).ready(function () {
     });
     return o;
   };
-  String.prototype.capitalizeFirstLetter = function() {
+  String.prototype.capitalizeFirstLetter = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
   };
 
@@ -48,7 +48,17 @@ $(document).ready(function () {
 
   homeView = {
     init: function () {
-
+      firebase.database().ref('events/').once('value').then(function (snapshot) {
+        $.each(snapshot.val(), function (key, value) {
+          $('#showEvent').append('<div class="col-xs-12 col-md-6"><div class="thumbnail"><div class="caption"><p>' +
+            value.start
+            + '</p><h3>' +
+            value.title
+            + '</h3><p>' +
+            value.location
+            + '</p></div></div></div>');
+        });
+      });
     }
   };
 
@@ -76,7 +86,7 @@ $(document).ready(function () {
       this.headerUserBtn = $('#headerUserBtn');
       this.headerUsername = $('#headerUsername');
       this.headerLogoutBtn = $('#headerLogoutBtn');
-      this.modalCreateEventBtn = $('#modalCreateEventBtn');
+      this.createEventBtn = $('#createEventBtn');
       //Auth State header
     },
     render: function (user) {
@@ -88,12 +98,13 @@ $(document).ready(function () {
           self.headerUsername.text('Hi, ' + snapshot.val().username).append('<span class="caret"></span>');
           self.headerUserBtn.removeClass('hide');
         });
-        self.headerLogoutBtn.click(function(){
+        self.headerLogoutBtn.click(function () {
           navController.signOut();
         });
-        self.modalCreateEventBtn.off('click');
-        self.modalCreateEventBtn.click(function () {
-          modalCreateEvent.modal('show');
+        self.createEventBtn.off('click');
+        self.createEventBtn.click(function () {
+          console.log(modalCreateEvent.view.modal);
+          modalCreateEvent.view.modal.modal('show');
         });
       } else {
         console.log('no user');
@@ -101,9 +112,9 @@ $(document).ready(function () {
         self.headerSignupBtn.removeClass('hide');
         self.headerUserBtn.addClass('hide');
 
-        self.modalCreateEventBtn.off('click');
-        self.modalCreateEventBtn.click(function () {
-          modalSignup.modal('show');
+        self.createEventBtn.off('click');
+        self.createEventBtn.click(function () {
+          modalSignUp.view.modal.modal('show');
         });
       }
     }
@@ -114,18 +125,7 @@ $(document).ready(function () {
     navView.render(user);
   });
 
-  //event table
-  // firebase.database().ref('events/').once('value').then(function (snapshot) {
-  //   $.each(snapshot.val(), function (key, value) {
-  //     $('#showEvent').append('<div class="col-xs-12 col-md-6"><div class="thumbnail"><div class="caption"><p>' +
-  //       value.eventStart
-  //       + '</p><h3>' +
-  //       value.eventTitle
-  //       + '</h3><p>' +
-  //       value.eventLocation
-  //       + '</p></div></div></div>');
-  //   });
-  // });
+
 
   requirementModel = {
     nameRequirement: [
@@ -145,10 +145,42 @@ $(document).ready(function () {
       {condition: 'value == ""', output: 'Please enter your password.'},
       {condition: 'value.length < 3', output: 'Your password should be greater than 3 characters.'},
       {condition: 'value.length > 20', output: 'Your password should be fewer than 20 characters.'}
+    ],
+    titleRequirement: [
+      {condition: 'value == ""', output: 'Please enter the event title.'},
+      {condition: 'value.length < 3', output: 'Your title should be greater than 3 characters.'},
+      {condition: 'value.length > 20', output: 'Your title should be fewer than 20 characters.'}
+    ],
+    typeRequirement: [
+      {condition: 'value == "Select the type of the event"', output: 'Please select the type of the event.'}
+    ],
+    hostRequirement: [
+      {condition: 'value == ""', output: 'Please enter the event host.'},
+      {condition: 'value.length < 3', output: 'The event host should be greater than 3 characters.'},
+      {condition: 'value.length > 20', output: 'The event host should be fewer than 20 characters.'}
+    ],
+    startRequirement: [
+      {condition: 'value == ""', output: 'Please enter the event start time.'}
+    ],
+    endRequirement: [
+      {condition: 'value == ""', output: 'Please enter the event end time.'}
+    ],
+    locationRequirement: [
+      {condition: 'value == ""', output: 'Please enter the event location.'},
+      {condition: 'value.length < 3', output: 'The event location should be greater than 3 characters.'},
+      {condition: 'value.length > 50', output: 'The event location should be fewer than 50 characters.'}
+    ],
+    guestRequirement: [
+      {condition: 'value == ""', output: 'Please enter the event guest.'},
+      {condition: 'value.length < 3', output: 'The event guest should be greater than 3 characters.'},
+      {condition: 'value.length > 20', output: 'The event guest should be fewer than 20 characters.'}
+    ],
+    messageRequirement: [
+      {condition: 'value.length > 100', output: 'The event message should be fewer than 100 characters.'}
     ]
   };
 
-  var ConstructForm = function(modalName, inputList, type, redirect){
+  var ConstructForm = function (modalName, inputList, type) {
     var construct = this;
     this.controller = {
       init: function () {
@@ -167,34 +199,75 @@ $(document).ready(function () {
             break;
           }
         }
+        if(varName == 'start'){
+          value = new Date(value);
+          var dateNow = new Date();
+          if(dateNow > value){
+            result = 'Start day should be after' + dateNow;
+          }
+        }
+        if(varName == 'end'){
+          value = new Date(value);
+          var start = new Date(this.getVal('start'));
+          if(this.getVal('start') == ''){
+            result = 'Please enter start day.';
+          }
+          if(start > value){
+            result = 'End day should be after start day:' + start;
+          }
+        }
         return result;
       },
-      createUser: function(name, job, email, password){
-          var self = this;
-          firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
-            self.writeUserData(user.uid, name, job);
-            console.log('successfully created the user.');
-            console.log(user);
-            construct.view.modal.modal('hide');
-          }).catch(function(error) {
-            var errorCode = error.code;
-            alert(errorCode);
-          });
+      createUser: function (name, job, email, password) {
+        var self = this;
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+          self.writeUserData(user.uid, name, job);
+          console.log('successfully created the user.');
+          console.log(user);
+          construct.view.modal.modal('hide');
+        }).catch(function (error) {
+          var errorCode = error.code;
+          alert(errorCode);
+        });
       },
-      writeUserData: function(userId, name, job){
-          firebase.database().ref('users/' + userId).set({
-            username: name,
-            job: job
-          });
+      writeUserData: function (userId, name, job) {
+        firebase.database().ref('users/' + userId).set({
+          username: name,
+          job: job
+        });
       },
-      login: function(email, password){
-          firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-            console.log(user);
-            construct.view.modal.modal('hide');
-          }).catch(function (error) {
-            var errorMessage = error.message;
-            alert(errorMessage);
-          });
+      login: function (email, password) {
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+          console.log(user);
+          construct.view.modal.modal('hide');
+        }).catch(function (error) {
+          var errorMessage = error.message;
+          alert(errorMessage);
+        });
+      },
+      createEvent: function createEvent(title, type, host, start, end, location, guest, message) {
+        var user = firebase.auth().currentUser;
+        function writeNewPost(uid) {
+          var formData = {
+            title: title,
+            type: type,
+            host: host,
+            start: start,
+            end: end,
+            location: location,
+            guest: guest,
+            message: message
+          };
+          var newPostKey = firebase.database().ref().child('posts').push().key;
+          var updates = {};
+          updates['/events/' + newPostKey] = formData;
+          updates['/users/' + uid + '/events/' + newPostKey] = formData;
+          return firebase.database().ref().update(updates);
+        }
+        writeNewPost(user.uid).then(function(){
+          construct.view.modal.modal('hide');
+          homeView.init();
+        });
       }
     };
 
@@ -208,7 +281,7 @@ $(document).ready(function () {
         this.modal = $('#' + modalName);
 
         //form
-        inputList.forEach(function(input){
+        inputList.forEach(function (input) {
           self[input] = $('#' + modalName + input.capitalizeFirstLetter());
           self.addCheck(self[input], input);
         });
@@ -219,11 +292,11 @@ $(document).ready(function () {
         this.focus(inputList[0]);
 
         //link
-        if(redirect !== undefined){
-          this.linkLogin = this.modal.find('.link-login');
-          this.linkLogin.click(function () {
-            this.modal.modal('hide');
-            // modalSignupView.modal.modal('show');
+        if (type == 'signup') {
+          this.link = this.modal.find('.link-login');
+          this.link.click(function () {
+            self.modal.modal('hide');
+            modalLogin.view.modal.modal('show');
           });
         }
       },
@@ -270,11 +343,15 @@ $(document).ready(function () {
             self.check(self[e], e);
           });
           if (self.error.length == 0) {
-            if(type == 'signup'){
+            console.log('submit');
+            if (type == 'signup') {
               controller.createUser(controller.getVal('name'), controller.getVal('job'), controller.getVal('email'), controller.getVal('password'));
             }
-            if(type == 'login'){
+            if (type == 'login') {
               controller.login(controller.getVal('email'), controller.getVal('password'));
+            }
+            if (type == 'createEvent') {
+              controller.createEvent(controller.getVal('title'), controller.getVal('type'),controller.getVal('host'),controller.getVal('start'), controller.getVal('end'), controller.getVal('location'), controller.getVal('guest'), controller.getVal('message'));
             }
           } else {
             self[self.error[0]].focus();
@@ -283,11 +360,11 @@ $(document).ready(function () {
       }
     };
 
-    this.start = function(){
+    this.start = function () {
       this.controller.init();
     }
   };
-  ConstructForm.prototype.validateEmail = function(email){
+  ConstructForm.prototype.validateEmail = function (email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   };
@@ -300,91 +377,9 @@ $(document).ready(function () {
   var modalLogin = new ConstructForm('modalLogin', ['email', 'password'], 'login');
   modalLogin.start();
 
-
-
-//modal create event
-  var modalSubmitBtn = $('#modalSubmitBtn');
-  var modalCreateEvent = $('#modalCreateEvent');
-
-  modalSubmitBtn.click(function () {
-
-    var modalEventTitle = $('modalEventTitle');
-    var modalEventType = $('modalEventType');
-    var modalEventHost = $('modalEventHost');
-    var modalEventDate = $('modalEventDate');
-    var modalEventLocation = $('modalEventLocation');
-    var modalEventGuest = $('modalEventGuest');
-    var modalEventMessage = $('modalEventMessage');
-
-    //get input value
-    var modalEventTitleVal = modalEventTitle.val();
-    var modalEventTypeVal = $('#modalEventType option:selected').text();
-    var modalEventHostVal = modalEventHost.val();
-    var modalEventDateVal = modalEventDate.val();
-    var modalEventLocationVal = modalEventLocation.val();
-    var modalEventGuestVal = modalEventGuest.val();
-    var modalEventMessageVal = modalEventMessage.val();
-
-    //add issue tracker
-    var modalEventTitleTraker = new IssueTracker();
-    var modalEventTypeTraker = new IssueTracker();
-    var modalEventHostTraker = new IssueTracker();
-    var modalEventDateTraker = new IssueTracker();
-    var modalEventLocationTraker = new IssueTracker();
-    var modalEventGuestTraker = new IssueTracker();
-    var modalEventMessageTraker = new IssueTracker();
-
-    function checkrequirements() {
-
-      if (modalEventTitleVal.length < 3) {
-        modalEventTitleTraker.add('Event title should be greater than 3 characters.');
-      } else if (modalEventTitleVal.length > 20) {
-        modalEventTitleTraker.add('Event title should be fewer than 20 characters.');
-      }
-      ;
-
-      if (modalEventTypeVal === 'Select the type of the event') {
-        modalEventTypeTraker.add('Please select an event type.');
-      }
-
-      if (modalEventHostVal.length < 3) {
-        modalEventHostTraker.add('Host name should be greater than 3 characters.');
-      } else if (modalEventHostVal.length > 20) {
-        modalEventHostTraker.add('Host name shouold be fewer than 20 characters.');
-      }
-    }
-
-    console.log(modalEventTitleVal);
-    checkrequirements();
-
-    var modalEventTitleIssue = modalEventTitleTraker.retrieve();
-    var modalEventTypeIssue = modalEventTypeTraker.retrieve();
-    var modalEventHostIssue = modalEventHostTraker.retrieve();
-
-    modalEventTitle[0].setCustomValidity(modalEventTitleIssue);
-    modalEventHost[0].setCustomValidity.setCustomValidity(modalEventHostIssue);
-
-    createEvent();
-
-    function createEvent() {
-      var user = firebase.auth().currentUser;
-      writeNewPost(user.uid);
-
-      function writeNewPost(uid) {
-        var formData = $('#createEvent').serializeObject();
-
-        console.log(formData);
-        var newPostKey = firebase.database().ref().child('posts').push().key;
-        var updates = {};
-        updates['/events/' + newPostKey] = formData;
-        updates['/users/' + uid + '/events/' + newPostKey] = formData;
-        return firebase.database().ref().update(updates);
-      }
-    }
-
-    return false;
-  });
-
+  //CREATE MODAL
+  var modalCreateEvent = new ConstructForm('modalCreateEvent', ['title', 'type', 'host', 'start', 'end', 'location', 'guest', 'message'], 'createEvent');
+  modalCreateEvent.start();
 
 });
 
