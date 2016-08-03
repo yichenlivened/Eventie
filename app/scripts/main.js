@@ -131,7 +131,7 @@ $(document).ready(function () {
   requirementModel = {
     nameRequirement: [
       {condition: 'value == ""', output: 'Please enter your name.'},
-      {condition: 'value.length < 8', output: 'Your name should be greater than 8 characters.'},
+      {condition: 'value.length < 3', output: 'Your name should be greater than 3 characters.'},
       {condition: 'value.length > 30', output: 'Your name should be fewer than 30 characters.'}
     ],
     jobRequirement: [
@@ -144,7 +144,7 @@ $(document).ready(function () {
     ],
     passwordRequirement: [
       {condition: 'value == ""', output: 'Please enter your password.'},
-      {condition: 'value.length < 3', output: 'Your password should be greater than 3 characters.'},
+      {condition: 'value.length < 8', output: 'Your password should be greater than 8 characters.'},
       {condition: 'value.length > 20', output: 'Your password should be fewer than 20 characters.'}
     ],
     titleRequirement: [
@@ -224,16 +224,15 @@ $(document).ready(function () {
         }
         return result;
       },
-      createUser: function (name, job, email, password) {
+      createUser: function (name, job, emailVal, passwordVal) {
         var self = this;
-        firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+        firebase.auth().createUserWithEmailAndPassword(emailVal, passwordVal).then(function (user) {
           self.writeUserData(user.uid, name, job);
           console.log('successfully created the user.');
           console.log(user);
           construct.view.modal.modal('hide');
         }).catch(function (error) {
-          var errorCode = error.code;
-          alert(errorCode);
+          construct.view.email.parent().append(construct.view.alert('danger', error.message));
         });
       },
       writeUserData: function (userId, name, job) {
@@ -242,13 +241,12 @@ $(document).ready(function () {
           job: job
         });
       },
-      login: function (email, password) {
-        firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+      login: function (emailVal, passwordVal) {
+        firebase.auth().signInWithEmailAndPassword(emailVal, passwordVal).then(function (user) {
           console.log(user);
           construct.view.modal.modal('hide');
         }).catch(function (error) {
-          var errorMessage = error.message;
-          alert(errorMessage);
+          construct.view.password.parent().append(construct.view.alert('danger', error.message));
         });
       },
       createEvent: function createEvent(title, type, host, start, end, location, guest, message) {
