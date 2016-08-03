@@ -49,6 +49,7 @@ $(document).ready(function () {
   homeView = {
     init: function () {
       firebase.database().ref('events/').once('value').then(function (snapshot) {
+        $('#showEvent').html('');
         $.each(snapshot.val(), function (key, value) {
           $('#showEvent').append('<div class="col-xs-12 col-md-6"><div class="thumbnail"><div class="caption"><p>' +
             value.start
@@ -130,8 +131,8 @@ $(document).ready(function () {
   requirementModel = {
     nameRequirement: [
       {condition: 'value == ""', output: 'Please enter your name.'},
-      {condition: 'value.length < 3', output: 'Your name should be greater than 3 characters.'},
-      {condition: 'value.length > 20', output: 'Your name should be fewer than 20 characters.'}
+      {condition: 'value.length < 8', output: 'Your name should be greater than 8 characters.'},
+      {condition: 'value.length > 30', output: 'Your name should be fewer than 30 characters.'}
     ],
     jobRequirement: [
       {condition: 'value.length > 20', output: 'Your job name should be fewer than 20 characters.'}
@@ -185,6 +186,11 @@ $(document).ready(function () {
     this.controller = {
       init: function () {
         construct.view.init();
+      },
+      clean: function (){
+        inputList.forEach(function (e) {
+          construct.view[e].val('');
+        });
       },
       getVal: function (name) {
         return construct.view[name].val();
@@ -265,6 +271,7 @@ $(document).ready(function () {
           return firebase.database().ref().update(updates);
         }
         writeNewPost(user.uid).then(function(){
+          construct.controller.clean();
           construct.view.modal.modal('hide');
           homeView.init();
         });

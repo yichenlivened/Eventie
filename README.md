@@ -3,11 +3,11 @@ Eventie is a Meet-Up Event Planner, including account creation, event creation a
 
 # Install
 ```
-npm insall
+npm install
 
 bower install
 
-gulp serve
+gulp serve:dist
 ```
 
 # References
