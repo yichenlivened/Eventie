@@ -4,6 +4,8 @@ Eventie is a Meet-Up Event Planner with a focus on high conversion web forms - a
 ## Technology stack
 HTML5, CSS3, Javascript, JQuery, Firebase
 
+![alt tag](https://github.com/yichenlivened/Eventie/blob/master/eventie_desktop.gif)
+
 ## Features
 - **Responsiveness:** Content is responsive and presents all information clearly on a variety of devices (including desktop, tablet, and mobile).
 
