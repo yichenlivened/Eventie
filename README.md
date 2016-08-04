@@ -16,9 +16,7 @@ HTML5, CSS3, Javascript, JQuery, Firebase
 
 ## Install
 ```
-npm install
-
-bower install
+gulp
 
 gulp build
 
