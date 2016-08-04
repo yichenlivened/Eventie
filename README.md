@@ -1,10 +1,10 @@
-# Eventie
+# Eventie 
 Eventie is a Meet-Up Event Planner with a focus on high conversion web forms - account creation, event creation and event display.
 
-# Technology stack
+## Technology stack
 HTML5, CSS3, Javascript, JQuery, Firebase
 
-# Features
+## Features
 - **Responsiveness:** Content is responsive and presents all information clearly on a variety of devices (including desktop, tablet, and mobile).
 
 - **Prompts:** Most form prompts (including labels, placeholders, etc) are designed for users and their goals - they are phrased in friendly, human language.
@@ -14,7 +14,7 @@ HTML5, CSS3, Javascript, JQuery, Firebase
 - **Validation:** Users cannot submit a form with invalid information. Validation occurs no later than immediately after user focus leaves the input and is obvious.
 
 
-# Install
+## Install
 ```
 npm install
 
@@ -25,7 +25,7 @@ gulp build
 gulp serve:dist
 ```
 
-# References
+## References
 [PROJECT SPECIFICATION: Meet-Up Event Planner](https://review.udacity.com/?_ga=1.109568326.294826294.1463452248#!/rubrics/109/view)
 
 [Building High Conversion Web Forms](Building High Conversion Web Forms)
@@ -48,5 +48,5 @@ gulp serve:dist
 
 [GitHub Profile Checklist](https://docs.google.com/document/d/1a9AKnNyqfGgdQV5ohPCN5H9ntnEUhMptWMwVBWURCN0/pub?embedded=true)
 
-# License
+## License
 jQuery is provided under the [MIT license](https://tldrlegal.com/license/mit-license).
