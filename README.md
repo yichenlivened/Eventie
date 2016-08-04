@@ -1,11 +1,26 @@
 # Eventie
-Eventie is a Meet-Up Event Planner, including account creation, event creation and event display.
+Eventie is a Meet-Up Event Planner with a focus on high conversion web forms - account creation, event creation and event display.
+
+# Technology stack
+HTML5, CSS3, Javascript, JQuery, Firebase
+
+# Features
+- **Responsiveness:** Content is responsive and presents all information clearly on a variety of devices (including desktop, tablet, and mobile).
+
+- **Prompts:** Most form prompts (including labels, placeholders, etc) are designed for users and their goals - they are phrased in friendly, human language.
+
+- **Simplified Design:** There are as few inputs as possible.
+
+- **Validation:** Users cannot submit a form with invalid information. Validation occurs no later than immediately after user focus leaves the input and is obvious.
+
 
 # Install
 ```
 npm install
 
 bower install
+
+gulp build
 
 gulp serve:dist
 ```

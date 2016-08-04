@@ -1,0 +1,16 @@
+change tabs:
+  control + tab
+
+select duplicates:
+  control + g
+
+live template
+
+increase scope:
+  option + uparrow
+
+search
+  shift + shift (2x quickly)
+
+goto declaration:
+  command + b
